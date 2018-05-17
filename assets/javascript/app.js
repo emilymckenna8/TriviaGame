@@ -1,8 +1,10 @@
 //set variables
 var numCorrect;
+var numIncorrect;
 var userGuess;
 var answers;
-var correctAnswer;
+var newQuestion;
+var currentQuestion = 0;
 
 
 //creates object to hold questions and answers
@@ -25,17 +27,45 @@ var questions = [{
     correctAnswer:2,
 
 }];
-//arrays for each set of possible answers for each question
 
-//sets correct answers for each question
+
 
 //listen for user click and record answer
 
-//compare user guess to correct guess for each question using a for loop
+//
+//function to compare user guess to correct guess for each question using a for loop
 
-//reset function whenever user moves on to next question
 
-//tallies score whenever user hits submit buttom
+//if user answer is the same as the answers[correctAnswer], then user wins
 
-//sets timer that runs reset function whenever time is up
+function userScore() {
+
+for (i=0; i<questions.length; i++) {
+    var userGuess = 
+}
+
+};
+
+
+
+//move on to next question whenever user picks an answer; increase currentQuestion?
+
+function userSubmit() {
+
+    currentQuestion++
+}
+
+function nextQuestion() {
+
+    $("#userQuestion").html("<p>" + questions[currentQuestion].question + "</p>");
+    $("#first").text(questions[currentQuestion].answers[i]);
+    $("#second").text(questions[i].answers[i+1]);
+    $("#third").text(questions[i].answers[i+2]);
+    $("#fourth").text(questions[i].answers[i+3]);
+
+}
+
+//tallies score whenever user has answered all the questions
+
+//sets timer that cuts user off and tallies their score whenever time is up
 
