@@ -27,41 +27,51 @@ var questions = [{
     correctAnswer:2,
 
 }];
-
-
+//starts game when button is clicked
+$("#start").on("click", startGame);
 
 //listen for user click and record answer
 
-//
 //function to compare user guess to correct guess for each question using a for loop
 
 
 //if user answer is the same as the answers[correctAnswer], then user wins
 
-function userScore() {
-
-for (i=0; i<questions.length; i++) {
-    var userGuess = 
-}
-
-};
 
 
+//listen for user to click submit button and then run userSubmit
 
 //move on to next question whenever user picks an answer; increase currentQuestion?
 
-function userSubmit() {
+$("#next").on("click", function(){
 
-    currentQuestion++
-}
+    currentQuestion++;
+    console.log(currentQuestion)
+    nextQuestion();
 
-function nextQuestion() {
+});
 
+
+//start game
+function startGame() {
+    $("#start").remove();
     $("#userQuestion").html("<p>" + questions[currentQuestion].question + "</p>");
-    $("#first").text(questions[currentQuestion].answers[i]);
-    $("#second").text(questions[i].answers[i+1]);
-    $("#third").text(questions[i].answers[i+2]);
-    $("#fourth").text(questions[i].answers[i+3]);
+    $("#first").html("<input type='radio'>" + questions[currentQuestion].answers[0] + "</input>");
+    $("#second").html("<input type='radio'>" + questions[currentQuestion].answers[1] + "</input>");
+    $("#third").html("<input type='radio'>" + questions[currentQuestion].answers[2] + "</input>");
+    $("#fourth").html("<input type='radio'>" + questions[currentQuestion].answers[3] + "</input>");
+    $("#possibleAnswers").append("<button id='next'>Continue</button>");
+}
+//push new question to HTML
+function nextQuestion() {
+  
+    $("#userQuestion").html("<p>" + questions[currentQuestion].question + "</p>");
+    $("#first").html("<input type='radio'>" + questions[currentQuestion].answers[0] + "</input>");
+    $("#second").html("<input type='radio'>" + questions[currentQuestion].answers[1] + "</input>");
+    $("#third").html("<input type='radio'>" + questions[currentQuestion].answers[2] + "</input>");
+    $("#fourth").html("<input type='radio'>" + questions[currentQuestion].answers[3] + "</input>");
+    $("#possibleAnswers").append("<button id='next'>Continue</button>");
+
 
 }
 
