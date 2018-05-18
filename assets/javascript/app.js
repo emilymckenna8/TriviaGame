@@ -34,12 +34,33 @@ var questions = [{
 //starts game when button is clicked
 $("#start").on("click", startGame);
 
-//listen for user click and record answer
+//start game
+function startGame() {
+    numCorrect=0;
+    numIncorrect=0;
+    $("#start").remove();
+    $("#possibleAnswers").append("<button id='next'>Continue</button>");
+    nextQuestion();
+}
+  //push new question to HTML
+function nextQuestion() {
+    $("#timer").show();
+    run();
+    console.log("test");
+    $("#userQuestion").html("<p>" + questions[currentQuestion].question + "</p>");
+    $("#first").html("<input type='radio'  name='buttoncollection' id='radio0' value='0'>" + questions[currentQuestion].answers[0] + "</input>");
+    $("#second").html("<input type='radio' name='buttoncollection' id='radio1'value='1'>" + questions[currentQuestion].answers[1] + "</input>");
+    $("#third").html("<input type='radio' name='buttoncollection' id='radio2' value='2'>"+ questions[currentQuestion].answers[2] + "</input>");
+    $("#fourth").html("<input type='radio' name='buttoncollection' id='radio3' value='3'>" + questions[currentQuestion].answers[3] + "</input>");
+    //$("#possibleAnswers").append("<button id='next'>Continue</button>");
 
-//function to compare user guess to correct guess for each question using a for loop
+    
+}
 
-  //  Interval Demonstration
-    //  Set our number counter to 100.
+
+
+//  Timer
+    //  Set our number counter to 15.
     var number = 15;
 
     //  Variable that will hold our interval ID when we execute
@@ -54,7 +75,6 @@ $("#start").on("click", startGame);
 
     //  The run function sets an interval
     //  that runs the decrement function once a second.
-    //  *****BUG FIX******** 
     //  Clearing the intervalId prior to setting our new intervalId will not allow multiple instances.
     function run() {
       clearInterval(intervalId);
@@ -84,37 +104,27 @@ $("#start").on("click", startGame);
 
     //  The stop function
     function stop() {
-
-      //  Clears our intervalId
-      //  We just pass the name of the interval
-      //  to the clearInterval function.
+      number = 15;
       clearInterval(intervalId);
     }
 
-    //  Execute the run function.
-   
 
+$(document).on("click", "#next", function(){
+    grabGuess();
+    stop();
+    
+});
 
-     
- 
-//results pages functions
-
-function incorrect(){
-$("#userQuestion").text("Better Luck Next Time! The correct answer was: "+ questions[currentQuestion].answers[questions[currentQuestion].correctAnswer]);
-setTimeout(nextQuestion, 1000 * 3);
+function grabGuess() {
+    userGuess = $("input:checked").val();
+    console.log(userGuess)
+    checkAnswer();
 }
+// //listen for user to click an answer and then run checkAnswer
 
-function correct(){
-$("#userQuestion").text("Good Job! The correct answer was: "+ questions[currentQuestion].answers[questions[currentQuestion].correctAnswer]);
-setTimeout(nextQuestion, 1000 * 3);
-}
 
-function timesUp(){
-$("#userQuestion").text("<h1>Time's Up!</h1>");
-setTimeout(nextQuestion, 1000 * 3);
-}
 
-//if statement that determines which results
+//if statement that determines which results page
 function checkAnswer() {
     var rightAnswer = questions[currentQuestion].correctAnswer
     console.log(rightAnswer);
@@ -140,48 +150,52 @@ else if (parseInt(userGuess) != questions[currentQuestion].correctAnswer){
 
         //  Alert the user that time is up.
         timesUp();
+      
+        console.log(currentQuestion);
 
+    }   
+
+if (currentQuestion === (questions.length)){
+
+    stop();
+    gameOver();
 }
 }
+//results pages functions
 
+function incorrect(){
+stop();
+$("#timer").hide();
+
+$("#userQuestion").text("Better Luck Next Time! The correct answer was: "+ questions[currentQuestion].answers[questions[currentQuestion].correctAnswer]);
+setTimeout(nextQuestion, 1000 * 3);
+}
+
+function correct(){
+    $("#timer").hide();
+
+    $("#userQuestion").text("Good Job! The correct answer was: "+ questions[currentQuestion].answers[questions[currentQuestion].correctAnswer]);
+    setTimeout(nextQuestion, 1000 * 2);
+}
+
+function timesUp(){
+    $("#userQuestion").text("Time's Up!");
+    currentQuestion++;
+    setTimeout(nextQuestion, 1000 * 2);
+}
+
+function gameOver(){
+$("#timer").hide();
+$("#userQuestion").hide();
+$("#possibleAnswers").html("<h1>Game Over!  You got "+numCorrect+" and "+numIncorrect+" wrong</h1>");
+function startOver(){ location.reload() }
+setTimeout(startOver, 1000 * 2);
+
+
+
+}
 //move on to next question whenever user picks an answer; increase currentQuestion?
 
-
-
-$(document).on("click", "#next", function(){
-    grabGuess();
-    
-
-});
-
-function grabGuess() {
-    userGuess = $("input:checked").val();
-    console.log(userGuess)
-    checkAnswer();
-}
-// //listen for user to click an answer and then run checkAnswer
-
-//start game
-function startGame() {
-    numCorrect=0;
-    numIncorrect=0;
-    $("#start").remove();
-    $("#possibleAnswers").append("<button id='next'>Continue</button>");
-    nextQuestion();
-}
-//push new question to HTML
-function nextQuestion() {
-    run();
-    console.log("test");
-    $("#userQuestion").html("<p>" + questions[currentQuestion].question + "</p>");
-    $("#first").html("<input type='radio'  name='buttoncollection' id='radio0' value='0'>" + questions[currentQuestion].answers[0] + "</input>");
-    $("#second").html("<input type='radio' name='buttoncollection' id='radio1'value='1'>" + questions[currentQuestion].answers[1] + "</input>");
-    $("#third").html("<input type='radio' name='buttoncollection' id='radio2' value='2'>"+ questions[currentQuestion].answers[2] + "</input>");
-    $("#fourth").html("<input type='radio' name='buttoncollection' id='radio3' value='3'>" + questions[currentQuestion].answers[3] + "</input>");
-    //$("#possibleAnswers").append("<button id='next'>Continue</button>");
-
-
-}
 
 //if user answer is the same as the answers[correctAnswer], then user wins
 
