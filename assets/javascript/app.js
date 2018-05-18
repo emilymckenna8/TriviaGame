@@ -45,8 +45,37 @@ function grabGuess() {
 }
      
  
+//results pages functions
 
+function correct(){
+$("body").html("<h1>Better Luck Next Time!</h1><br><h2>The correct answer was: "+ questions[currentQuestion].answers[questions[currentQuestion].correctAnswer]+"</h2>");
 
+}
+
+function incorrect(){
+$("body").html("<h1>Good Job!</h1><br><h2>The correct answer was: "+ questions[currentQuestion].answers[questions[currentQuestion].correctAnswer]+"</h2>")
+}
+
+function timesUp(){
+$("body").html("<h1>Time's Up!</h1>")
+}
+
+//if statement that determines which results
+function checkAnswer() {
+if (parseInt(userGuess) === questions[currentQuestion].correctAnswer) {
+        numCorrect++;
+        console.log("number right: "+numCorrect);
+        correct();
+    }
+
+else if (parseInt(userGuess) != questions[currentQuestion].correctAnswer){
+        numIncorrect++;
+        console.log("number wrong:" + numIncorrect);
+        incorrect();
+
+    }
+
+}
 
 //move on to next question whenever user picks an answer; increase currentQuestion?
 
@@ -84,19 +113,7 @@ function nextQuestion() {
 }
 
 //if user answer is the same as the answers[correctAnswer], then user wins
-function checkAnswer(){
-    if (parseInt(userGuess) === questions[currentQuestion].correctAnswer) {
-        numCorrect++;
-        console.log("number right: "+numCorrect);
-    }
 
-    else {
-        numIncorrect++;
-        console.log("number wrong:" + numIncorrect);
-    }
-
-    
-}
 
 
 
