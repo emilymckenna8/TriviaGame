@@ -61,7 +61,7 @@ function nextQuestion() {
 
 //  Timer
     //  Set our number counter to 15.
-    var number = 15;
+    var number = 5;
 
     //  Variable that will hold our interval ID when we execute
     //  the "run" function
@@ -104,7 +104,7 @@ function nextQuestion() {
 
     //  The stop function
     function stop() {
-      number = 15;
+      number = 5;
       clearInterval(intervalId);
     }
 
@@ -143,7 +143,7 @@ else if (parseInt(userGuess) != questions[currentQuestion].correctAnswer){
 
     }
 
- if (number === 0) {
+ if (number === 0 && currentQuestion < questions.length){
 
         //  ...run the stop function.
         stop();
@@ -155,7 +155,7 @@ else if (parseInt(userGuess) != questions[currentQuestion].correctAnswer){
 
     }   
 
-if (currentQuestion === (questions.length)){
+if (currentQuestion === questions.length){
 
     stop();
     gameOver();
@@ -181,13 +181,14 @@ function correct(){
 function timesUp(){
     $("#userQuestion").text("Time's Up!");
     currentQuestion++;
+    console.log(currentQuestion);
     setTimeout(nextQuestion, 1000 * 2);
 }
 
 function gameOver(){
 $("#timer").hide();
 $("#userQuestion").hide();
-$("#possibleAnswers").html("<h1>Game Over!  You got "+numCorrect+" and "+numIncorrect+" wrong</h1>");
+$("#possibleAnswers").html("<h1>Game Over!  You got "+numCorrect+" correct and "+numIncorrect+" wrong</h1>");
 function startOver(){ location.reload() }
 setTimeout(startOver, 1000 * 2);
 
